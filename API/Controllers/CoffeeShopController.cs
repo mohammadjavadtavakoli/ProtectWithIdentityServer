@@ -10,11 +10,11 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CofeeShopController : ControllerBase
+    public class CoffeeShopController : ControllerBase
     {
         private readonly ICoffeeShopService _coffeeShopService;
 
-        public CofeeShopController(ICoffeeShopService coffeeShopService)
+        public CoffeeShopController(ICoffeeShopService coffeeShopService)
         {
             _coffeeShopService = coffeeShopService;
         }
