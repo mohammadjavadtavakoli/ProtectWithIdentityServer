@@ -1,3 +1,4 @@
+using Client.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,8 @@ namespace Client
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpClient();
+            services.Configure<IdentityServerSettings>(Configuration.GetSection("IdentityServerSettings"));
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +52,8 @@ namespace Client
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();

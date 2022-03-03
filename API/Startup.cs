@@ -26,6 +26,13 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication("Bearer", option =>
+                {
+                    option.Authority = "https://localhost:5443";
+                    option.ApiName = "CofeeAPI"; //ApiResourceName
+                });
+
             services.AddScoped<ICoffeeShopService, CoffeeShopService>();
             services.AddDbContext<ApplicationDbContext>(option =>
             {
@@ -42,6 +49,9 @@ namespace API
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoint =>
             {

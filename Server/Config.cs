@@ -49,6 +49,7 @@ namespace Server
 
                     ClientId="m2m.client",
                     ClientName="Client Credentials Client",
+                    AllowedGrantTypes=GrantTypes.ClientCredentials,
                     ClientSecrets={new Secret("clientSecret1".Sha256())},
                     AllowedScopes={"CofeeAPI.read","CofeeAPI.write"}
                 },
