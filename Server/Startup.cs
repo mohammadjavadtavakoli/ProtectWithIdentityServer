@@ -32,7 +32,7 @@ namespace Server
             services.AddDbContext<AspNetIdentityDbContext>(option =>
             option.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
             b => b.MigrationsAssembly(assembly)));
-           
+
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AspNetIdentityDbContext>();
@@ -40,7 +40,7 @@ namespace Server
 
 
             services.AddIdentityServer()
-                .AddAspNetIdentity<IdentityUser>() 
+                .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(option =>
                 {
                     option.ConfigureDbContext = b => b.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
@@ -52,6 +52,8 @@ namespace Server
 
                 })
                 .AddDeveloperSigningCredential();
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,11 +66,11 @@ namespace Server
             app.UseStaticFiles();
             app.UseRouting();
             app.UseIdentityServer();
-            //app.UseAuthorization();
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapDefaultControllerRoute();
-            //});
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+            });
         }
     }
 }
